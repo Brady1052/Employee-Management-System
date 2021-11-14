@@ -1,7 +1,7 @@
 const mysql = require('mysql2');
 const inquirer = require("inquirer");
 const cTable = require('console.table');
-const { allowedNodeEnvironmentFlags } = require('process');
+const { allowedNodeEnvironmentFlags, listenerCount } = require('process');
 // require('dotenv').config();
 
 // Connect to database
@@ -59,6 +59,8 @@ function firstPrompt() {
                 addRole()
             } else if (data.task == "Add an employee") {
                 addEmployee()
+            } else if (data.task == "Update Employee Role") {
+                updateEmployeeRole()
             }
         })
 }
@@ -183,45 +185,88 @@ function addEmployee() {
                 name: employee.first_name
             }))
 
-        //   console.log(roleChoices)
-        //   console.log(employeeChoices)
-          //Write inquirer here  
-          inquirer.prompt([
-            {
-                type: "input",
-                name: "first_name",
-                message: "What is the first name of the employee you would like to add?",
-            },
-            {
-                type: "input",
-                name: "last_name",
-                message: "What is the last name of the employee you would like to add?",
-            },
-            {
-                type: "list",
-                name: "role",
-                message: "What is this employees role?",
-                choices: roleChoices,
-            },
-            {
-                type: "list",
-                name: "employee_id",
-                message: "Who is this employee reporting to?",
-                choices: employeeChoices,
-            }
-        ])
-        .then(answers => {
-            console.log(answers)
-            db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.first_name}','${answers.last_name}', ${answers.role}, ${answers.employee_id})`,
-                (err) => {
-                    if (err) {
-                        console.error(err)
-                    } else {
-                        console.log("Successfully Added!")
-                        firstPrompt()
-                    }
+            //   console.log(roleChoices)
+            //   console.log(employeeChoices)
+            //Write inquirer here  
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "first_name",
+                    message: "What is the first name of the employee you would like to add?",
+                },
+                {
+                    type: "input",
+                    name: "last_name",
+                    message: "What is the last name of the employee you would like to add?",
+                },
+                {
+                    type: "list",
+                    name: "role",
+                    message: "What is this employees role?",
+                    choices: roleChoices,
+                },
+                {
+                    type: "list",
+                    name: "employee_id",
+                    message: "Who is this employee reporting to?",
+                    choices: employeeChoices,
+                }
+            ])
+                .then(answers => {
+                    // console.log(answers)
+                    db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.first_name}','${answers.last_name}', ${answers.role}, ${answers.employee_id})`,
+                        (err) => {
+                            if (err) {
+                                console.error(err)
+                            } else {
+                                console.log("Successfully Added!")
+                                firstPrompt()
+                            }
+                        })
                 })
-            })  
         })
     })
 }
+    function updateEmployeeRole() {
+        db.query("SELECT * FROM employee", (err, results) => {
+            if (err) {
+                console.error(err)
+            }
+            // console.log(results)
+            let employeeChoices = results.map(employee => ({
+                value: employee.id,
+                name: employee.first_name
+            }))
+            // db.query("SELECT * FROM role", (err, results) => {
+            //     if (err) {
+            //         console.error(err)
+            //     }
+                // let roleChoices = results.map(employee => ({
+                //     value: role.id,
+                //     name: role.first_name
+                // }))
+
+                //   console.log(roleChoices)
+                //   console.log(employeeChoices)
+                //Write inquirer here  
+                inquirer.prompt({                   
+                        type: "list",
+                        name: "employee",
+                        message: "What employee would you like to update?",
+                        choices: employeeChoices,                   
+            })
+                    .then(answers => {
+                         console.log(answers)
+                        db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.first_name}','${answers.last_name}', ${answers.role}, ${answers.employee_id})`,
+                            (err) => {
+                                if (err) {
+                                    console.error(err)
+                                } else {
+                                    console.log("Successfully Added!")
+                                    firstPrompt()
+                                }
+                            })
+                    })
+            })
+        }
+    // )}
