@@ -56,8 +56,8 @@ How to Contribute
 NA
 
 Tests
-view testing here
+View testing here:
 https://watch.screencastify.com/v/lqIrv81yhnMIpUErRmmc
 
-Questions
+Questions:
 bradybuchholz@gmail.com
