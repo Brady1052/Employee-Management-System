@@ -55,7 +55,8 @@ MIT License
 How to Contribute
 NA
 
-Tests
+Instructions on how to use:
+
 Video demonstrating how to use this application:
 https://watch.screencastify.com/v/lqIrv81yhnMIpUErRmmc
 
