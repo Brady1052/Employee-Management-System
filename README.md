@@ -56,7 +56,7 @@ How to Contribute
 NA
 
 Tests
-View testing here:
+Video demonstrating how to use this application:
 https://watch.screencastify.com/v/lqIrv81yhnMIpUErRmmc
 
 Questions:
