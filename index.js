@@ -1,8 +1,5 @@
 const mysql = require('mysql2');
 const inquirer = require("inquirer");
-const cTable = require('console.table');
-const { allowedNodeEnvironmentFlags, listenerCount } = require('process');
-// require('dotenv').config();
 
 // Connect to database
 const db = mysql.createConnection(
@@ -16,16 +13,6 @@ const db = mysql.createConnection(
     },
     console.log(`Connected to the books_db database.`)
 );
-
-//   // simple query
-// connection.query(
-//     'SELECT * FROM `table`
-//     function(err, results, fields) {
-//       console.log(results); // results contains rows returned by server
-//       console.log(fields); // fields contains extra meta data about results, if available
-//     }
-//   );
-
 
 firstPrompt()
 function firstPrompt() {
@@ -126,12 +113,10 @@ function addRole() {
         if (err) {
             console.error(err)
         }
-        // console.log(results)
         let roleChoices = results.map(role => ({
             value: role.id,
             name: role.name
         }))
-        // console.log(roleChoices)
 
         inquirer.prompt([
             {
@@ -171,7 +156,6 @@ function addEmployee() {
         if (err) {
             console.error(err)
         }
-        // console.log(results)
         let roleChoices = results.map(role => ({
             value: role.id,
             name: role.title
@@ -185,8 +169,6 @@ function addEmployee() {
                 name: employee.first_name
             }))
 
-            //   console.log(roleChoices)
-            //   console.log(employeeChoices)
             //Write inquirer here  
             inquirer.prompt([
                 {
@@ -213,7 +195,6 @@ function addEmployee() {
                 }
             ])
                 .then(answers => {
-                    // console.log(answers)
                     db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.first_name}','${answers.last_name}', ${answers.role}, ${answers.employee_id})`,
                         (err) => {
                             if (err) {
@@ -232,23 +213,11 @@ function addEmployee() {
             if (err) {
                 console.error(err)
             }
-            // console.log(results)
             let employeeChoices = results.map(employee => ({
                 value: employee.id,
                 name: employee.first_name
             }))
-            // db.query("SELECT * FROM role", (err, results) => {
-            //     if (err) {
-            //         console.error(err)
-            //     }
-                // let roleChoices = results.map(employee => ({
-                //     value: role.id,
-                //     name: role.first_name
-                // }))
 
-                //   console.log(roleChoices)
-                //   console.log(employeeChoices)
-                //Write inquirer here  
                 inquirer.prompt({                   
                         type: "list",
                         name: "employee",
@@ -269,4 +238,3 @@ function addEmployee() {
                     })
             })
         }
-    // )}
