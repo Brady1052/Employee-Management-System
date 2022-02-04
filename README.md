@@ -1,7 +1,12 @@
 # Employee-Management-System
 
-Employee-Management-System
-Description
+# Demonstration
+https://watch.screencastify.com/v/lqIrv81yhnMIpUErRmmc
+
+# Technologies Used
+MySQL2, Inquirer, Javascript, OOP
+
+# Description
 -create a sql system that can track employees roles, managers, and departments on -we need this to quickly add employees as well to any department -GIVEN a command-line application that accepts user input
 
 WHEN I start the application
@@ -36,7 +41,7 @@ WHEN I choose to update an employee role
 
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
-Table of Contents
+# Table of Contents
 Installation
 Usage
 Credits
@@ -46,17 +51,14 @@ Tests
 Installation
 npm inquirer, npm mysql2, npm console.table, and npm dotenv are all needed
 
-Usage
+# Usage
 As a buinsess owner I want to be able to track and organize my team of employees
 
-License
+# License
 MIT License
 
-How to Contribute
+# How to Contribute
 NA
 
-Tests
-https://watch.screencastify.com/v/lqIrv81yhnMIpUErRmmc
-
-Questions
+# Questions
 bradybuchholz.dev@gmail.com
